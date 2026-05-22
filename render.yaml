@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: yossic-ossic
+    env: node
+    plan: free
+    buildCommand: >
+      cd frontend && npm install && npm run build &&
+      cp -r out ../backend/public &&
+      cd ../backend && npm install --omit=dev
+    startCommand: node backend/server.js
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: TEACHER_EMAIL
+        sync: false
