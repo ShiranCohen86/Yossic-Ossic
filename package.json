@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev:backend": "cd backend && npm run dev",
+    "mock": "node mock-server.js",
     "dev:frontend": "cd frontend && npm run dev",
-    "build": "cd frontend && npm run build && cp -r out ../backend/public",
-    "seed": "cd backend && node seed/seed.js"
+    "build": "cd frontend && npm run build && cp -r out ../backend/public"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
   }
 }

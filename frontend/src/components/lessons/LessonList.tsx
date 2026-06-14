@@ -8,7 +8,7 @@ interface Props { lessons: Lesson[]; onRefresh: () => void; showStudent?: boolea
 
 export default function LessonList({ lessons, onRefresh, showStudent }: Props) {
   const [loading, setLoading] = useState<string | null>(null);
-  const action = async (fn: () => Promise<void>) => { setLoading('x'); try { await fn(); onRefresh(); } finally { setLoading(null); } };
+  const action = async (fn: () => Promise<unknown>) => { setLoading('x'); try { await fn(); onRefresh(); } finally { setLoading(null); } };
 
   if (lessons.length === 0) return <p className="text-gray-400">אין שיעורים להצגה</p>;
 

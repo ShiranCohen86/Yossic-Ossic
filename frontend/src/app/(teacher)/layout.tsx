@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/lib/store';
 import TeacherSidebar from '@/components/layout/TeacherSidebar';
@@ -8,13 +8,16 @@ import TeacherSidebar from '@/components/layout/TeacherSidebar';
 export default function TeacherLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { user, token } = useAppSelector((state) => state.auth);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
+    if (!mounted) return;
     if (!token || !user) router.replace('/login/');
     else if (user.role !== 'teacher') router.replace('/student/dashboard/');
-  }, [user, token, router]);
+  }, [user, token, router, mounted]);
 
-  if (!user || user.role !== 'teacher') return null;
+  if (!mounted || !user || user.role !== 'teacher') return null;
 
   return (
     <div className="flex min-h-screen">
